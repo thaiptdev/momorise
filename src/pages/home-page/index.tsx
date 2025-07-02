@@ -29,7 +29,7 @@ const HomePage = () => {
     <div className="relative w-screen h-screen overflow-hidden bg-[#efe2d3]">
       {/* Logo */}
       <img
-        src="/src/assets/images/logo_dark.png"
+        src="/images/logo_dark.png"
         alt="logo_dark"
         className="absolute top-10 left-10 w-[150px] h-auto z-20"
       />
@@ -46,7 +46,7 @@ const HomePage = () => {
       >
         {/* House */}
         <img
-          src="/src/assets/images/house.png"
+          src="/images/house.png"
           alt="house"
           className="h-auto relative"
           style={{
@@ -58,7 +58,7 @@ const HomePage = () => {
         {/* Door - aligned to house bottom center with hover button */}
         <div className="absolute bottom-0 left-[53%] transform -translate-x-1/2 z-30 group w-[140px]">
           <img
-            src="/src/assets/images/door.png"
+            src="/images/door.png"
             alt="door"
             className="w-full h-auto cursor-pointer"
           />
@@ -85,7 +85,7 @@ const HomePage = () => {
                 key={window.id}
               >
                 <img
-                  src="/src/assets/images/second_window.png"
+                  src="/images/second_window.png"
                   alt={`window-${window.id}`}
                   className="w-[100px] h-auto"
                 />
@@ -111,7 +111,7 @@ const HomePage = () => {
                 {lstWindow_1[index] ? (
                   <>
                     <img
-                      src="/src/assets/images/first_window.png"
+                      src="/images/first_window.png"
                       alt={`extra-window-${lstWindow_1[index].id}`}
                       className="w-[100px] h-auto"
                     />
@@ -132,7 +132,7 @@ const HomePage = () => {
 
       {/* Ground */}
       <img
-        src="/src/assets/images/ground.png"
+        src="/images/ground.png"
         alt="ground"
         className="absolute bottom-0 left-0 w-full z-0"
       />

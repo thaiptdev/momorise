@@ -9,7 +9,7 @@ const FormPage = () => {
       <div className="flex flex-col h-full items-start gap-4">
         {/* Logo */}
         <img
-          src="/src/assets/images/logo_dark.png"
+          src="/images/logo_dark.png"
           alt="logo"
           className="w-[100px] md:w-[150px] h-auto"
         />
@@ -27,7 +27,7 @@ const FormPage = () => {
 
         {/* Background Image */}
         <img
-          src="/src/assets/images/form_bg.png"
+          src="/images/form_bg.png"
           alt="form background"
           className="w-full max-w-[1100px] mx-auto"
         />

@@ -18,7 +18,7 @@ const PaintingPage = () => {
       {/* Top Left Section: Logo + Back Button */}
       <div className="flex flex-col items-start gap-4 mb-4">
         <img
-          src="/src/assets/images/logo_dark.png"
+          src="/images/logo_dark.png"
           alt="logo"
           className="w-[100px] md:w-[150px] h-auto"
           //   className="absolute top-10 left-10 w-[150px] h-auto z-20"

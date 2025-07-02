@@ -14,7 +14,7 @@ function LandingPage() {
     <div className="relative w-screen h-screen">
       {/* Background image */}
       <img
-        src="/src/assets/images/bg_homepage.png"
+        src="/images/bg_homepage.png"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />
@@ -24,7 +24,7 @@ function LandingPage() {
         <div className="flex flex-col items-start text-left max-w-6xl w-full">
           {/* Logo */}
           <img
-            src="/src/assets/images/logo.png"
+            src="/images/logo.png"
             alt="Logo"
             className="w-full mb-6 max-w-3xl sm:max-w-2xl md:max-w-xl"
           />
