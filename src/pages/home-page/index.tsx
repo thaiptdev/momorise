@@ -1,29 +1,83 @@
 import { useNavigate } from "react-router";
+import { useState, useEffect } from "react";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { db } from "../../firebase"; // Adjust the import path as needed
+
+// Type definitions for your painting data
+interface PaintingData {
+  id: string;
+  title: string;
+  author: string;
+  style: "vertical" | "horizontal";
+  thumbnail: string;
+  content: string;
+  status: {
+    active: boolean;
+    order: number;
+  };
+}
 
 const HomePage = () => {
-  const lstWindow = [
-    { id: 1, title: "Window 1", content: "" },
-    { id: 2, title: "Window 2", content: "" },
-    { id: 3, title: "Window 3", content: "" },
-    { id: 4, title: "Window 4", content: "" },
-  ];
-
-  const lstWindow_1 = [
-    { id: 1, title: "Extra Window 1", content: "" },
-    { id: 2, title: "Extra Window 2", content: "" },
-  ];
+  const [paintings, setPaintings] = useState<PaintingData[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const groundHeight = 120;
-
   const navigate = useNavigate();
 
-  const handleView = (id: number) => {
-    navigate(`/painting/${id}`);
+  // Fetch paintings from Firebase
+  useEffect(() => {
+    const fetchPaintings = async () => {
+      try {
+        setLoading(true);
+
+        // Create query to get only active paintings, ordered by status.order
+        const paintingsQuery = query(
+          collection(db, "paintings"),
+          where("status.active", "==", true),
+          orderBy("status.order", "asc")
+        );
+
+        const querySnapshot = await getDocs(paintingsQuery);
+        const paintingsData: PaintingData[] = [];
+
+        querySnapshot.forEach((doc) => {
+          paintingsData.push({
+            id: doc.id,
+            ...doc.data(),
+          } as PaintingData);
+        });
+
+        setPaintings(paintingsData);
+      } catch (err) {
+        console.error("Error fetching paintings:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPaintings();
+  }, []);
+
+  const handleView = (paintingId: string) => {
+    navigate(`/painting/${paintingId}`);
   };
 
   const handleCreate = () => {
     navigate(`/form_page`);
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="relative w-screen h-screen overflow-hidden bg-[#efe2d3] flex items-center justify-center">
+        <div className="text-[#414f08] text-xl">Loading paintings...</div>
+      </div>
+    );
+  }
+
+  // Split paintings into two rows for display
+  const firstRowPaintings = paintings.slice(0, 4); // First 4 paintings
+  const secondRowPaintings = paintings.slice(4, 8); // Next 4 paintings
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#efe2d3]">
@@ -77,55 +131,88 @@ const HomePage = () => {
 
         {/* Windows over the house */}
         <div className="absolute bottom-[-80px] left-0 w-full h-full flex flex-col space-y-6 items-center gap-4 z-20">
-          {/* Row 1: lstWindow */}
+          {/* Row 1: First 4 paintings */}
           <div className="grid grid-cols-4 w-full gap-6">
-            {lstWindow.map((window) => (
-              <div
-                className="flex flex-col items-center justify-center relative group cursor-pointer"
-                key={window.id}
-              >
-                <img
-                  src="/images/second_window.png"
-                  alt={`window-${window.id}`}
-                  className="w-[100px] h-auto"
-                />
-                <button
-                  onClick={() => handleView(window.id)}
-                  className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
-          group-hover:translate-y-[-100%] group-hover:opacity-100 
-          transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+            {[0, 1, 2, 3].map((index) => {
+              const painting = firstRowPaintings[index];
+              return (
+                <div
+                  className="flex flex-col items-center justify-center relative group cursor-pointer"
+                  key={index}
                 >
-                  View
-                </button>
-              </div>
-            ))}
-          </div>
-
-          {/* Row 2: lstWindow_1 under the first two windows */}
-          <div className="grid grid-cols-4 w-full gap-6">
-            {[0, 1, 2, 3].map((index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-center relative group cursor-pointer"
-              >
-                {lstWindow_1[index] ? (
-                  <>
-                    <img
-                      src="/images/first_window.png"
-                      alt={`extra-window-${lstWindow_1[index].id}`}
-                      className="w-[100px] h-auto"
-                    />
+                  <img
+                    src="/images/second_window.png"
+                    alt={`window-${index + 1}`}
+                    className="w-[100px] h-auto"
+                  />
+                  {painting && (
                     <button
+                      onClick={() => handleView(painting.id)}
                       className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
-              group-hover:translate-y-[-100%] group-hover:opacity-100 
-              transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+                        group-hover:translate-y-[-100%] group-hover:opacity-100 
+                        transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
                     >
                       View
                     </button>
-                  </>
-                ) : null}
-              </div>
-            ))}
+                  )}
+                  {!painting && (
+                    <div
+                      className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
+                      group-hover:translate-y-[-100%] group-hover:opacity-100 
+                      transition-all duration-500 ease-in-out bg-gray-400 text-white text-sm px-3 py-1 rounded-full z-30 cursor-not-allowed"
+                    >
+                      No Painting
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Row 2: Next 4 paintings */}
+          <div className="grid grid-cols-4 w-full gap-6">
+            {[0, 1, 2, 3].map((index) => {
+              const painting = secondRowPaintings[index];
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col items-center justify-center relative group cursor-pointer"
+                >
+                  {painting ? (
+                    <>
+                      <img
+                        src="/images/first_window.png"
+                        alt={`extra-window-${index + 1}`}
+                        className="w-[100px] h-auto"
+                      />
+                      <button
+                        onClick={() => handleView(painting.id)}
+                        className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
+                          group-hover:translate-y-[-100%] group-hover:opacity-100 
+                          transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+                      >
+                        View
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src="/images/first_window.png"
+                        alt={`empty-window-${index + 1}`}
+                        className="w-[100px] h-auto opacity-50"
+                      />
+                      <div
+                        className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
+                        group-hover:translate-y-[-100%] group-hover:opacity-100 
+                        transition-all duration-500 ease-in-out bg-gray-400 text-white text-sm px-3 py-1 rounded-full z-30 cursor-not-allowed"
+                      >
+                        No Painting
+                      </div>
+                    </>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
