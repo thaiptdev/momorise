@@ -77,7 +77,7 @@ const HomePage = () => {
 
   // Split paintings into two rows for display
   const firstRowPaintings = paintings.slice(0, 4); // First 4 paintings
-  const secondRowPaintings = paintings.slice(4, 8); // Next 4 paintings
+  const secondRowPaintings = paintings.slice(4, 7); // Next 3 paintings (to fit 3 in row 2)
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#efe2d3]">
@@ -109,29 +109,9 @@ const HomePage = () => {
           }}
         />
 
-        {/* Door - aligned to house bottom center with hover button */}
-        <div className="absolute bottom-0 left-[53%] transform -translate-x-1/2 z-30 group w-[140px]">
-          <img
-            src="/images/door.png"
-            alt="door"
-            className="w-full h-auto cursor-pointer"
-          />
-
-          {/* Floating button from bottom to center on hover */}
-          <button
-            onClick={() => handleCreate()}
-            className="absolute left-1/2 top-full translate-x-[-50%] translate-y-0 opacity-0
-               group-hover:top-1/2 group-hover:translate-y-[-50%] group-hover:opacity-100
-               transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-4 py-1 
-               rounded-full z-30 whitespace-nowrap cursor-pointer"
-          >
-            Create Your Own
-          </button>
-        </div>
-
         {/* Windows over the house */}
-        <div className="absolute bottom-[-80px] left-0 w-full h-full flex flex-col space-y-6 items-center gap-4 z-20">
-          {/* Row 1: First 4 paintings - only show if paintings exist */}
+        <div className="absolute bottom-[-70px] left-0 w-full h-full flex flex-col space-y-6 items-center gap-4 z-20">
+          {/* Row 1: First 4 paintings */}
           {firstRowPaintings.length > 0 && (
             <div className="grid grid-cols-4 w-full gap-6">
               {firstRowPaintings.map((painting, index) => (
@@ -142,7 +122,7 @@ const HomePage = () => {
                   <img
                     src="/images/second_window.png"
                     alt={`window-${index + 1}`}
-                    className="w-[100px] h-auto"
+                    className="w-[120px] h-auto"
                   />
                   <button
                     onClick={() => handleView(painting.id)}
@@ -157,9 +137,9 @@ const HomePage = () => {
             </div>
           )}
 
-          {/* Row 2: Next 4 paintings - only show if paintings exist */}
+          {/* Row 2: Next 3 paintings + empty column + main window spanning 2 columns */}
           {secondRowPaintings.length > 0 && (
-            <div className="grid grid-cols-4 w-full gap-6">
+            <div className="grid grid-cols-4 w-full gap-6 items-center">
               {secondRowPaintings.map((painting, index) => (
                 <div
                   key={painting.id}
@@ -168,7 +148,7 @@ const HomePage = () => {
                   <img
                     src="/images/first_window.png"
                     alt={`extra-window-${index + 1}`}
-                    className="w-[100px] h-auto"
+                    className="w-[120px] h-auto"
                   />
                   <button
                     onClick={() => handleView(painting.id)}
@@ -180,6 +160,26 @@ const HomePage = () => {
                   </button>
                 </div>
               ))}
+              {/* Empty column for the third slot */}
+              {/* <div className="flex flex-col items-center justify-center"></div> */}
+              {/* Main window spanning columns 4 and 5 */}
+              <div className="col-span-2 flex justify-end relative group cursor-pointer">
+                <div className="relative">
+                  <img
+                    src="/images/main-window.png"
+                    alt="main-window"
+                    className="w-[260px] h-auto"
+                  />
+                  <button
+                    onClick={() => handleCreate()}
+                    className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] opacity-0 
+        group-hover:opacity-100 group-hover:translate-y-[-50%] 
+        transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+                  >
+                    Create Your Own
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
