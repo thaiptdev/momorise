@@ -143,10 +143,10 @@ const PaintingPage = () => {
             <img
               src={currentPainting.thumbnail}
               alt="painting"
-              className={`rounded-[30px] border-4 border-[#414F08] shadow-xl ${
+              className={`rounded-[30px] border-4 border-[#414F08] shadow-xl object-contain ${
                 isVertical
                   ? "w-auto h-full max-h-[70vh] md:max-h-[85vh] max-w-[90%]" // Vertical: constrain by height
-                  : "w-full max-w-[90%] md:max-w-[90%] h-auto max-h-[70vh] md:max-h-[85vh]" // Horizontal: constrain by width
+                  : "max-w-[90%] max-h-[70vh] md:max-h-[85vh] w-auto h-auto" // Horizontal: constrain by both dimensions, let browser choose
               }`}
             />
           </div>
