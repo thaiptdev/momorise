@@ -131,89 +131,57 @@ const HomePage = () => {
 
         {/* Windows over the house */}
         <div className="absolute bottom-[-80px] left-0 w-full h-full flex flex-col space-y-6 items-center gap-4 z-20">
-          {/* Row 1: First 4 paintings */}
-          <div className="grid grid-cols-4 w-full gap-6">
-            {[0, 1, 2, 3].map((index) => {
-              const painting = firstRowPaintings[index];
-              return (
+          {/* Row 1: First 4 paintings - only show if paintings exist */}
+          {firstRowPaintings.length > 0 && (
+            <div className="grid grid-cols-4 w-full gap-6">
+              {firstRowPaintings.map((painting, index) => (
                 <div
                   className="flex flex-col items-center justify-center relative group cursor-pointer"
-                  key={index}
+                  key={painting.id}
                 >
                   <img
                     src="/images/second_window.png"
                     alt={`window-${index + 1}`}
                     className="w-[100px] h-auto"
                   />
-                  {painting && (
-                    <button
-                      onClick={() => handleView(painting.id)}
-                      className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
-                        group-hover:translate-y-[-100%] group-hover:opacity-100 
-                        transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
-                    >
-                      View
-                    </button>
-                  )}
-                  {!painting && (
-                    <div
-                      className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
+                  <button
+                    onClick={() => handleView(painting.id)}
+                    className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
                       group-hover:translate-y-[-100%] group-hover:opacity-100 
-                      transition-all duration-500 ease-in-out bg-gray-400 text-white text-sm px-3 py-1 rounded-full z-30 cursor-not-allowed"
-                    >
-                      No Painting
-                    </div>
-                  )}
+                      transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+                  >
+                    View
+                  </button>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
 
-          {/* Row 2: Next 4 paintings */}
-          <div className="grid grid-cols-4 w-full gap-6">
-            {[0, 1, 2, 3].map((index) => {
-              const painting = secondRowPaintings[index];
-              return (
+          {/* Row 2: Next 4 paintings - only show if paintings exist */}
+          {secondRowPaintings.length > 0 && (
+            <div className="grid grid-cols-4 w-full gap-6">
+              {secondRowPaintings.map((painting, index) => (
                 <div
-                  key={index}
+                  key={painting.id}
                   className="flex flex-col items-center justify-center relative group cursor-pointer"
                 >
-                  {painting ? (
-                    <>
-                      <img
-                        src="/images/first_window.png"
-                        alt={`extra-window-${index + 1}`}
-                        className="w-[100px] h-auto"
-                      />
-                      <button
-                        onClick={() => handleView(painting.id)}
-                        className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
-                          group-hover:translate-y-[-100%] group-hover:opacity-100 
-                          transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
-                      >
-                        View
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src="/images/first_window.png"
-                        alt={`empty-window-${index + 1}`}
-                        className="w-[100px] h-auto opacity-50"
-                      />
-                      <div
-                        className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
-                        group-hover:translate-y-[-100%] group-hover:opacity-100 
-                        transition-all duration-500 ease-in-out bg-gray-400 text-white text-sm px-3 py-1 rounded-full z-30 cursor-not-allowed"
-                      >
-                        No Painting
-                      </div>
-                    </>
-                  )}
+                  <img
+                    src="/images/first_window.png"
+                    alt={`extra-window-${index + 1}`}
+                    className="w-[100px] h-auto"
+                  />
+                  <button
+                    onClick={() => handleView(painting.id)}
+                    className="absolute left-1/2 bottom-0 translate-x-[-50%] translate-y-[100%] opacity-0 
+                      group-hover:translate-y-[-100%] group-hover:opacity-100 
+                      transition-all duration-500 ease-in-out bg-[#414f08] text-white text-sm px-3 py-1 rounded-full z-30 cursor-pointer"
+                  >
+                    View
+                  </button>
                 </div>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
