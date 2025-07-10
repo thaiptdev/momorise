@@ -14,7 +14,7 @@ function LandingPage() {
     <div className="relative w-screen h-screen">
       {/* Background image */}
       <img
-        src="/images/bg_homepage.png"
+        src="/images/bg_homepage.jpg"
         alt="Background"
         className="absolute inset-0 w-full h-full object-cover z-0"
       />

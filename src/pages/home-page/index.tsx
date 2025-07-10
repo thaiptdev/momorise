@@ -100,7 +100,7 @@ const HomePage = () => {
       >
         {/* House */}
         <img
-          src="/images/house.png"
+          src="/images/house_resize.png"
           alt="house"
           className="h-auto relative"
           style={{
@@ -166,7 +166,7 @@ const HomePage = () => {
               <div className="col-span-2 flex justify-end relative group cursor-pointer">
                 <div className="relative">
                   <img
-                    src="/images/main-window.png"
+                    src="/images/main-window_resize.png"
                     alt="main-window"
                     className="w-[260px] h-auto"
                   />
