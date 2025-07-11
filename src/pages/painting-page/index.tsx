@@ -107,25 +107,23 @@ const PaintingPage = () => {
   return (
     <div className="w-screen h-screen bg-[#efe2d3] flex flex-col">
       {/* Top Left Section: Logo + Back Button - Fixed Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between items-start gap-2 sm:gap-4 p-2 sm:p-4 md:p-6 flex-shrink-0 z-10">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-          <img
-            src="/images/logo_dark.png"
-            alt="logo"
-            className="w-[80px] sm:w-[100px] md:w-[150px] h-auto"
-          />
+      <div className="flex flex-col items-start gap-2 p-2 sm:p-4 md:p-6 flex-shrink-0 z-10">
+        <img
+          src="/images/logo_dark.png"
+          alt="logo"
+          className="w-[80px] sm:w-[100px] md:w-[150px] h-auto"
+        />
 
-          <button
-            onClick={() => navigate("/home")}
-            className="flex items-center gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746] 
-              transition-all duration-300 ease-in-out transform hover:scale-105 
-              rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-sm sm:text-base"
-          >
-            <ArrowLeft size={16} className="sm:hidden" />
-            <ArrowLeft size={20} className="hidden sm:block" />
-            Back
-          </button>
-        </div>
+        <button
+          onClick={() => navigate("/home")}
+          className="flex items-center gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746] 
+            transition-all duration-300 ease-in-out transform hover:scale-105 
+            rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium text-sm sm:text-base"
+        >
+          <ArrowLeft size={16} className="sm:hidden" />
+          <ArrowLeft size={20} className="hidden sm:block" />
+          Back
+        </button>
       </div>
 
       {/* Main Content Area */}
