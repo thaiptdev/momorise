@@ -150,73 +150,75 @@ const PaintingPage = () => {
             />
           </div>
 
-          {/* Text Section */}
+          {/* Text Section - Vertically Centered */}
           <div
-            className={`flex flex-col justify-center px-1 sm:px-2 md:px-4 overflow-hidden min-h-0 ${
+            className={`flex flex-col justify-center px-1 sm:px-2 md:px-4 ${
               isVertical
                 ? "flex-1 lg:flex-[3]" // More space for text when image is vertical
                 : "flex-1 lg:flex-[2]" // Less space for text when image is horizontal
             }`}
           >
-            <h2
-              className={`text-[#414F08] text-center mb-1 sm:mb-2 leading-tight ${
-                isVertical
-                  ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" // Smaller text for vertical layout
-                  : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl" // Larger text for horizontal layout
-              }`}
-            >
-              "{currentPainting.title}"
-            </h2>
-            <h4
-              className={`text-center text-[#414F08] mb-1 sm:mb-2 ${
-                isVertical
-                  ? "text-sm sm:text-base md:text-lg lg:text-xl" // Smaller subtitle for vertical layout
-                  : "text-base sm:text-lg md:text-xl lg:text-2xl" // Larger subtitle for horizontal layout
-              }`}
-            >
-              <span className="custom-font">Story from </span>
-              <span className="custom-font font-bold">
-                {currentPainting.author}
-              </span>
-            </h4>
-            <div
-              className={`text-[#414f08] text-justify overflow-auto pr-1 sm:pr-2 scrollbar-thin scrollbar-thumb-[#414f08] scrollbar-track-transparent flex-1 min-h-0 ${
-                isVertical
-                  ? "text-xs sm:text-sm md:text-base" // Smaller text for vertical
-                  : "text-sm sm:text-base md:text-lg" // Larger text for horizontal
-              }`}
-            >
-              {currentPainting.content}
-            </div>
+            <div className="flex flex-col items-center justify-center">
+              <h2
+                className={`text-[#414F08] text-center mb-1 sm:mb-2 leading-tight ${
+                  isVertical
+                    ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" // Smaller text for vertical layout
+                    : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl" // Larger text for horizontal layout
+                }`}
+              >
+                "{currentPainting.title}"
+              </h2>
+              <h4
+                className={`text-center text-[#414F08] mb-2 sm:mb-4 ${
+                  isVertical
+                    ? "text-sm sm:text-base md:text-lg lg:text-xl" // Smaller subtitle for vertical layout
+                    : "text-base sm:text-lg md:text-xl lg:text-2xl" // Larger subtitle for horizontal layout
+                }`}
+              >
+                <span className="custom-font">Story from </span>
+                <span className="custom-font font-bold">
+                  {currentPainting.author}
+                </span>
+              </h4>
+              <div
+                className={`text-[#414f08] text-justify mb-4 sm:mb-6 ${
+                  isVertical
+                    ? "text-xs sm:text-sm md:text-base" // Smaller text for vertical
+                    : "text-sm sm:text-base md:text-lg" // Larger text for horizontal
+                }`}
+              >
+                {currentPainting.content}
+              </div>
 
-            {/* Navigation Buttons */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 mt-2 sm:mt-4 flex-shrink-0">
-              <button
-                disabled={!prevPainting}
-                onClick={() =>
-                  prevPainting && navigate(`/painting/${prevPainting.id}`)
-                }
-                className="flex items-center gap-1 sm:gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746]
-                  transition-all duration-300 ease-in-out transform hover:scale-105
-                  rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-              >
-                <ArrowLeft size={16} className="sm:hidden" />
-                <ArrowLeft size={20} className="hidden sm:block" />
-                <span className="hidden sm:inline">Prev</span>
-              </button>
-              <button
-                disabled={!nextPainting}
-                onClick={() =>
-                  nextPainting && navigate(`/painting/${nextPainting.id}`)
-                }
-                className="flex items-center gap-1 sm:gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746]
-                  transition-all duration-300 ease-in-out transform hover:scale-105
-                  rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-              >
-                <span className="hidden sm:inline">Next</span>
-                <ArrowRight size={16} className="sm:hidden" />
-                <ArrowRight size={20} className="hidden sm:block" />
-              </button>
+              {/* Navigation Buttons */}
+              <div className="flex items-center justify-center gap-2 sm:gap-4">
+                <button
+                  disabled={!prevPainting}
+                  onClick={() =>
+                    prevPainting && navigate(`/painting/${prevPainting.id}`)
+                  }
+                  className="flex items-center gap-1 sm:gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746]
+                    transition-all duration-300 ease-in-out transform hover:scale-105
+                    rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                >
+                  <ArrowLeft size={16} className="sm:hidden" />
+                  <ArrowLeft size={20} className="hidden sm:block" />
+                  <span className="hidden sm:inline">Prev</span>
+                </button>
+                <button
+                  disabled={!nextPainting}
+                  onClick={() =>
+                    nextPainting && navigate(`/painting/${nextPainting.id}`)
+                  }
+                  className="flex items-center gap-1 sm:gap-2 text-[#414f08] bg-[#D0D354] hover:bg-[#c3c746]
+                    transition-all duration-300 ease-in-out transform hover:scale-105
+                    rounded-full px-3 py-1.5 sm:px-4 sm:py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                >
+                  <span className="hidden sm:inline">Next</span>
+                  <ArrowRight size={16} className="sm:hidden" />
+                  <ArrowRight size={20} className="hidden sm:block" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
